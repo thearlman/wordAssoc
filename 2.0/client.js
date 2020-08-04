@@ -36,7 +36,11 @@ function createNetwork() {
       repulsion: {
         centralGravity: .0001,
         springLength: 5000
-      }
+      },
+      barnesHut: {
+      springConstant: 0,
+      avoidOverlap: .7
+    }
     },
     layout: {
       improvedLayout: false,
