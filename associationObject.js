@@ -1,4 +1,4 @@
-let tagAssociations {
+let tagAssociations = {
   "sympoietic": [],
   "Sympoietics": [],
   "Sympoïèse": [],
