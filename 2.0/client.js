@@ -1,7 +1,13 @@
-console.log("loaded");
+console.log(`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                  Welcome Home!
+This little website uses vis.js https://visjs.org/
+and dataMuse https://www.datamuse.com/api/
+My name is Asa, and I like to make things.
+You can find me at: https://asas.website/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// let nodes = new vis.DataSet([]);
-// let edges = new vis.DataSet([]);
+`);
 
 let nodes = [];
 let network;
@@ -14,16 +20,6 @@ function createNetwork() {
     });
   });
 
-
-  // // create an array with edges
-  // let edges = new vis.DataSet([
-  //   {from: 1, to: 3},
-  //   {from: 1, to: 2},
-  //   {from: 2, to: 4},
-  //   {from: 2, to: 5},
-  //   {from: 3, to: 3}
-  // ]);
-
   // create a network
   let container = document.getElementById('mynetwork');
   let data = {
@@ -34,13 +30,13 @@ function createNetwork() {
     physics: {
       stabilization: false,
       repulsion: {
-        centralGravity: .0001,
-        springLength: 5000
+        centralGravity: 0,
+        springLength: 0
       },
       barnesHut: {
-      springConstant: 0,
-      avoidOverlap: .7
-    }
+        springConstant: .05,
+        avoidOverlap: .5
+      }
     },
     layout: {
       improvedLayout: false,
@@ -61,7 +57,6 @@ function createNetwork() {
 }
 
 createNetwork();
-
 
 function makeConnections(nodeNumber) {
   // console.log(nodeNumber);
@@ -87,7 +82,10 @@ function drawConnections(nodeNumber, matchingTags) {
   for (var i = 0; i < Object.keys(matchingTags).length; i++) {
     let tag = Object.keys(matchingTags)[i];
     if (matchingTags[tag].length > 0) {
-      network.body.data.edges.add([{from: nodeNumber, to: i}]);
+      network.body.data.edges.add([{
+        from: nodeNumber,
+        to: i
+      }]);
       let tagList = "";
       matchingTags[tag].forEach((item, i) => {
         tagList += item + "<br>";
@@ -97,7 +95,7 @@ function drawConnections(nodeNumber, matchingTags) {
   }
 }
 
-function removeAllEdges(){
+function removeAllEdges() {
   network.body.data.edges.forEach((item, i) => {
     network.body.data.edges.remove([i]);
   });

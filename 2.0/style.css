@@ -8,3 +8,23 @@
   width: 100vw;
   height: 100vh;
 }
+
+#info{
+  position: fixed;
+  padding: 20px;
+  width: max-content;
+  height: max-content;
+  background: black;
+  color: white;
+  z-index: 1000;
+  opacity: .4;
+  transition: all .3s;
+}
+
+#info:hover{
+  opacity: 1;
+}
+
+#info a:visited{
+  color: white;
+}
