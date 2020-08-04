@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#main-cont{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: 100vw;
+  /* height: 100vh; */
+  /* border: solid 1px red; */
+  padding: 10px;
+}
+
+.keyword{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  min-width: 10vw;
+  max-width: 10vw;
+  height: 10vh;
+  margin: 10px;
+  background: black;
+  color: white;
+}
+
+.keyword:hover{
+  background: grey;
+  color: black;
+}
+
+.association{
+  position: fixed;
+  background: white;
+  color: black;
+  padding:10px;
+}
