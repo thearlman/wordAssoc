@@ -1,4 +1,11 @@
 let tags = [
+  "sympoietic",
+  "Sympoietics",
+  "Sympoïèse",
+  "agency",
+  "autonomy",
+  "sharing",
+  "partage",
   "16th century",
   "17th century",
   "18th century",
