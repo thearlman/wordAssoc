@@ -28,13 +28,15 @@ function createNetwork() {
   };
   let options = {
     physics: {
-      stabilization: false,
-      repulsion: {
-        centralGravity: 0,
-        springLength: 0
+      stabilization: {
+        iterations: 10,
       },
+      timestep: .3,
+      adaptiveTimestep: true,
       barnesHut: {
-        springConstant: .05,
+        gravitationalConstant: -3500,
+        springLength: 10,
+        // springConstant: .05,
         avoidOverlap: .5
       }
     },
@@ -44,6 +46,18 @@ function createNetwork() {
     nodes: {
       shape: "circle",
       margin: 10,
+      color: {
+        border: '#000000',
+        background: '#377EB8',
+        highlight: {
+          border: '#000000',
+          background: '#4CAF4A'
+        },
+        hover: {
+          border: '#2B7CE9',
+          background: '#D2E5FF'
+        }
+      },
     }
   };
   network = new vis.Network(container, data, options);
