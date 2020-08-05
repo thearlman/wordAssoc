@@ -36,14 +36,17 @@ function createNetwork() {
       barnesHut: {
         gravitationalConstant: -3500,
         springLength: 10,
-        // springConstant: .05,
-        avoidOverlap: .5
+        springConstant: .01,
+        avoidOverlap: .7
       }
     },
     layout: {
       improvedLayout: false,
     },
     nodes: {
+      font: {
+        size: 22
+      },
       shape: "circle",
       margin: 10,
       color: {
