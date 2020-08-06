@@ -71,7 +71,7 @@ function callApi(){
       }
     }
     setTimeout( ()=>{
-      request.open('GET', `http://api.datamuse.com/words?ml=${tagFormatter(tag)}`);
+      request.open('GET', `https://api.datamuse.com/words?ml=${tagFormatter(tag)}`);
       request.send();
     }, 50);
   });
