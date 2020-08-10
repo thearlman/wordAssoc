@@ -10,7 +10,7 @@ You can find me at: https://asas.website/
 `);
 
 document.getElementById('submit').onclick = submitTags;
-document.getElementById('submitDemo').onclick = ()=>{
+document.getElementById('submitDemo').onclick = () => {
   tags = tagsDemo;
   tagAssociations = tagAssociationsDemo;
   createNetwork();
@@ -25,11 +25,11 @@ function submitTags() {
   event.preventDefault();
   let tempWord = "";
   let allTags = document.getElementById("userTags").value;
-  if(allTags.length > 0){
+  if (allTags.length > 0) {
     tagCount = allTags.length;
     console.log("submitted");
     for (var i = 0; i < allTags.length; i++) {
-      if (allTags[i] === " " && allTags[i-1] === ",") {
+      if (allTags[i] === " " && allTags[i - 1] === ",") {
         null;
       } else if (allTags[i] != ",") {
         tempWord += allTags[i];
@@ -44,33 +44,37 @@ function submitTags() {
       }
     }
     callApi();
-  } else{
+  } else {
     return;
   }
 }
 
-function callApi(){
+function callApi() {
   let tagCount = 0;
   let numTags = tags.length;
   tags.forEach((tag, i) => {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        tagAssociations[tag] = [];
-        tags.push(tag);
-        let associativeKeywords = JSON.parse(request.responseText);
-        associativeKeywords.forEach((item, i) => {
-          tagAssociations[tag].push(item.word);
-        });
-        tagCount++;
-        if (numTags === tagCount) {
-          createNetwork();
+        if (JSON.parse(request.responseText).length > 0) {
+          tagAssociations[tag] = [];
+          tags.push(tag);
+          let associativeKeywords = JSON.parse(request.responseText);
+          associativeKeywords.forEach((item, i) => {
+            tagAssociations[tag].push(item.word);
+          });
+          tagCount++;
+          if (numTags === tagCount) {
+            createNetwork();
+          }
+        } else {
+          console.log("nothing found");
         }
       } else {
         // console.log(request.responseText);
       }
     }
-    setTimeout( ()=>{
+    setTimeout(() => {
       request.open('GET', `https://api.datamuse.com/words?ml=${tagFormatter(tag)}`);
       request.send();
     }, 50);
@@ -103,6 +107,7 @@ function createNetwork() {
   container.style.display = "unset";
   document.getElementById('userTags').remove();
   document.getElementById('submit').remove();
+  document.getElementById('submitDemo').remove();
   let data = {
     nodes: nodes,
     // edges: edges
