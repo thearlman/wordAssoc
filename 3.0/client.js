@@ -44,7 +44,10 @@ function submitTags() {
       }
     }
     callApi();
+    console.log("called");
   } else {
+    document.getElementById('userTags').classList.add('bad-input');
+    document.getElementById('userTags').placeholder = "Please enter one or more keywords seperated by a comma";
     return;
   }
 }
@@ -56,6 +59,7 @@ function callApi() {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+        console.log(this.readyState);
         if (JSON.parse(request.responseText).length > 0) {
           tagAssociations[tag] = [];
           tags.push(tag);
@@ -64,11 +68,13 @@ function callApi() {
             tagAssociations[tag].push(item.word);
           });
           tagCount++;
+          console.log(`num Tags: ${numTags}, tagCount: ${tagCount}`);
           if (numTags === tagCount) {
             createNetwork();
           }
         } else {
-          console.log("nothing found");
+          // console.log("nothing found for");
+          // console.log(request.responseText);
         }
       } else {
         // console.log(request.responseText);

@@ -48,3 +48,7 @@
   height: 50vh;
   margin-bottom: 20px;
 }
+
+.bad-input::placeholder{
+  color: red;
+}
