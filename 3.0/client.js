@@ -27,7 +27,6 @@ function submitTags() {
   let allTags = document.getElementById("userTags").value;
   if (allTags.length > 0) {
     tagCount = allTags.length;
-    console.log("submitted");
     for (var i = 0; i < allTags.length; i++) {
       if (allTags[i] === " " && allTags[i - 1] === ",") {
         null;
@@ -44,7 +43,6 @@ function submitTags() {
       }
     }
     callApi();
-    console.log("called");
   } else {
     document.getElementById('userTags').classList.add('bad-input');
     document.getElementById('userTags').placeholder = "Please enter one or more keywords seperated by a comma";
@@ -52,14 +50,15 @@ function submitTags() {
   }
 }
 
+
 function callApi() {
   let tagCount = 0;
   let numTags = tags.length;
+  let badTags = 0;
   tags.forEach((tag, i) => {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(this.readyState);
         if (JSON.parse(request.responseText).length > 0) {
           tagAssociations[tag] = [];
           tags.push(tag);
@@ -68,16 +67,13 @@ function callApi() {
             tagAssociations[tag].push(item.word);
           });
           tagCount++;
-          console.log(`num Tags: ${numTags}, tagCount: ${tagCount}`);
-          if (numTags === tagCount) {
+          if (numTags - badTags === tagCount) {
             createNetwork();
           }
         } else {
-          // console.log("nothing found for");
-          // console.log(request.responseText);
+          badTags++;
         }
       } else {
-        // console.log(request.responseText);
       }
     }
     setTimeout(() => {
@@ -157,18 +153,13 @@ function createNetwork() {
   };
   network = new vis.Network(container, data, options);
   network.on("click", function(properties) {
-    // console.log(properties.nodes[0]);
-    (typeof properties.nodes[0] !== "undefined") ?
-    makeConnections(properties.nodes[0]):
-      console.log("nope");
-
+    if (typeof properties.nodes[0] !== "undefined") makeConnections(properties.nodes[0])
   })
 }
 
 // createNetwork();
 
 function makeConnections(nodeNumber) {
-  // console.log(nodeNumber);
   let matchingTags = {};
   let selectedTag = tags[nodeNumber];
   tags.forEach((tag, i) => {
